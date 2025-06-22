@@ -1,0 +1,91 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
+    header("Location: documenten.php");
+    exit();
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOCUMENTEN</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+
+<body>
+    <header>
+        <div class="left">2024-2025 WORKS</div>
+        <div class="right">
+            <form action="logout.php">
+                <button type="Log Out">Log out</button>
+            </form>
+        </div>
+    </header>
+    <form method="GET" action="">
+        <label for="document">Choose a document:</label>
+        <select name="file" id="document" required>
+            <option value="" disabled selected>-- Jaar 1: Semester 1 --</option>
+            <option value="DOCUMENTEN/Reflectieverslag1.pdf">Reflectie Verlsag</option>
+            <option value="DOCUMENTEN/Portofolio-2024-2025.pdf">Edumundo PORTOFOLIO</option>
+            <option value="DOCUMENTEN/NOTULEN.1.pdf">Notulen</option>
+            <option value="DOCUMENTEN/StandaardAgendaPlenair.pdf">Agenda</option>
+            <option value="DOCUMENTEN/Semester1/PVA-INF1D.pdf">Plan van Aanpak</option>
+            <option value="DOCUMENTEN/Urenstaat IC-INF-1D.pdf">Urenstaat P1</option>
+            <option value="DOCUMENTEN/Groepspresentatie1INFD.pdf">Presenteren feedback groep</option>
+            <option value="DOCUMENTEN/Feedback Formulier.pdf">Feedback krijgen</option>
+            <option value="DOCUMENTEN/feedback.gegeven.pdf">Feedback gegeven</option>
+            <option value="DOCUMENTEN/PresentatievoorbeidingINF1D.pdf">P1 groepspresentatie 1INFD</option>
+            <option value="DOCUMENTEN/Inhoud.pdf">P2 Inhoud Presentatie</option>
+            <option value="DOCUMENTEN/Feedback.pdf">P2 Feedbackvergadering</option>
+
+            <option value="" disabled selected>-- Jaar 1: Semester 2 --</option>
+            <option value="DOCUMENTEN/Portfolio 2024_2025_Semester2.pdf">Edumundo Portofolio</option>
+            <option value="DOCUMENTEN/PvA - Project Innovate - Groep B.pdf">Plan van Aanpak -Semester 2-</option>
+            <option value="DOCUMENTEN/Technisch_Adviesrapport.pdf">Technisch Adviesrapport</option>
+            <option value="DOCUMENTEN/FeedbackFormulierGegeven.pdf">Feedback Formulier  -Semester 2-</option>
+            <option value="DOCUMENTEN/reflectieVerslag2.pdf">Reflectie verslag -Semester 2-</option>
+            <option value="DOCUMENTEN/App Investor Pitch Deck.pdf">Product Presentatie -Semester 2-</option>
+            <option value="DOCUMENTEN/360_Feedback_Ontvangen.pdf">360 graden Feedback Ontvangen</option>
+            <option value="DOCUMENTEN/360_Feedback_gegeven.pdf">360 graden Feedback Gegeven</option>
+            <option value="DOCUMENTEN/PersoonlijkOntwikkelingsplan.pdf">Persoonlijk OntwikkelPlan</option>
+        </select>
+        <button type="submit">View Document</button>
+    </form>
+    
+
+    <div id="pdf-container">
+        <?php
+
+        $directory = 'DOCUMENTEN';
+
+        if (isset($_GET['file'])) {
+            $file = basename($_GET['file']);
+            $filePath = $directory . '/' . $file;
+
+            if (file_exists($filePath)) {
+
+                echo "<iframe src='$filePath#toolbar=0&navpanes=0' frameborder='0'></iframe>";
+            } else {
+                echo "<p style='color: red;'>File not found. Please select a valid document.</p>";
+            }
+        } else {
+            echo "<p>Select a document from the dropdown to view it here.</p>";
+        }
+        ?>
+    </div>
+    <footer>
+        <div class="footer-left">
+            <a href="mailto:artist@example.com">artist@example.com</a>
+        </div>
+        <div class="footer-right">
+            <a href="tel:+1234567890">Tel: +1234567890</a>
+        </div>
+    </footer>
+</body>
+
+</html>
