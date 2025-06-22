@@ -1,12 +1,3 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
-    header("Location: documenten.php");
-    exit();
-}
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -57,27 +48,6 @@ if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
         <button type="submit">View Document</button>
     </form>
     
-
-    <div id="pdf-container">
-        <?php
-
-        $directory = 'DOCUMENTEN';
-
-        if (isset($_GET['file'])) {
-            $file = basename($_GET['file']);
-            $filePath = $directory . '/' . $file;
-
-            if (file_exists($filePath)) {
-
-                echo "<iframe src='$filePath#toolbar=0&navpanes=0' frameborder='0'></iframe>";
-            } else {
-                echo "<p style='color: red;'>File not found. Please select a valid document.</p>";
-            }
-        } else {
-            echo "<p>Select a document from the dropdown to view it here.</p>";
-        }
-        ?>
-    </div>
     <footer>
         <div class="footer-left">
             <a href="mailto:artist@example.com">artist@example.com</a>
